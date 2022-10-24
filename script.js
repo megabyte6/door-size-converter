@@ -18,8 +18,8 @@ function backspace() {
 }
 
 function clearDisplay() {
-    document.getElementById("input").innerHTML = ""
-    document.getElementById("output").innerHTML = "0"
+    document.getElementById("input").innerHTML = "0 cm"
+    document.getElementById("output").innerHTML = "0\""
     document.getElementById("rounding").innerHTML = "±"
 }
 
