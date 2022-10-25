@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: ShortStack;
 }
 
 div.content {
@@ -71,3 +72,9 @@ button.keypad:hover {
         height: 15vh;
     }
 }
+
+@font-face {
+    font-family: ShortStack;
+    src: url(resources/fonts/ShortStack-Regular.ttf);
+}
+
