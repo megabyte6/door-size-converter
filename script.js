@@ -9,16 +9,16 @@ function reduceFraction(numerator, denominator) {
     return numerator + "/" + denominator
 }
 
-function press(num) {
-    let oldVal = getInput()
-    if (oldVal == 0) oldVal = ""
-    setInput(oldVal + num)
-}
-
 function clearDisplay() {
     setInput("0")
     setOutput("0")
     setRounding("±")
+}
+
+function press(num) {
+    let oldVal = getInput()
+    if (oldVal == 0) oldVal = ""
+    setInput(oldVal + num)
 }
 
 function backspace() {
@@ -31,12 +31,6 @@ function backspace() {
 }
 
 function convertSize() {
-    const input = document.getElementById("input")
-    const inputVal = getNumber(input.innerHTML)
-    const output = document.getElementById("output")
-    const outputVal = getNumber(output.innerHTML)
-    const rounding = document.getElementById("rounding")
-    const roundingVal = getNumber(rounding.innerHTML)
     if (isNaN(getInput()) || getInput() == "") {
         output.innerHTML = "0\""
         rounding.innerHTML = "±"
@@ -82,14 +76,7 @@ function getOutput() {
 }
 
 function setOutput(value) {
-    let newValue = value
-    let index = value.indexOf(" ")
-    if (index !== -1) {
-        newValue = value.slice(0, index) + "\"" + value.slice(index)
-    } else {
-        newValue = value + "\""
-    }
-    document.getElementById("output").innerHTML = newValue
+    document.getElementById("output").innerHTML = value + " ft"
 }
 
 function getRounding() {
