@@ -1,15 +1,18 @@
+function getNumber(str) {
+    return str.replace(/[^\d.]/g, '')
+}
+
 function reduceFraction(numerator, denominator) {
-    while (numerator % 2 == 0) {
-        if (numerator == 0) break
-        numerator /= 2
-        denominator /= 2
+    if (numerator % 2 == 0 && numerator !== 0) {
+        return reduceFraction(numerator / 2, denominator / 2)
     }
     return numerator + "/" + denominator
 }
 
 function press(num) {
-    var old = document.getElementById("input").innerHTML
-    document.getElementById("input").innerHTML = old + num
+    let old = getNumber(document.getElementById("input").innerHTML)
+    if (old == 0) old = ""
+    document.getElementById("input").innerHTML = old + num + " cm"
 }
 
 function backspace() {
@@ -24,17 +27,20 @@ function clearDisplay() {
 }
 
 function convertSize() {
-    var input = document.getElementById("input")
-    var output = document.getElementById("output")
-    var rounding = document.getElementById("rounding")
-    if (isNaN(input.innerHTML) || input.innerHTML === "") {
-        output.innerHTML = "0"
+    const input = document.getElementById("input")
+    const inputVal = getNumber(input.innerHTML)
+    const output = document.getElementById("output")
+    const outputVal = getNumber(output.innerHTML)
+    const rounding = document.getElementById("rounding")
+    const roundingVal = getNumber(rounding.innerHTML)
+    if (isNaN(inputVal) || inputVal === "") {
+        output.innerHTML = "0\""
         rounding.innerHTML = "±"
         return
     }
 
     // Convert to inches
-    var convertedInches = input.innerHTML / 25.4
+    var convertedInches = inputVal / 25.4
     // Get whole inches
     var wholeInches = Math.trunc(convertedInches)
     // Get the decimal remainder of the whole inches as sixteenths
