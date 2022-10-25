@@ -15,6 +15,12 @@ function press(num) {
     setInput(oldVal + num)
 }
 
+function clearDisplay() {
+    setInput("0")
+    setOutput("0")
+    setRounding("±")
+}
+
 function backspace() {
     const oldVal = getInput()
     let newVal = oldVal.substring(0, oldVal.length - 1)
@@ -24,12 +30,6 @@ function backspace() {
     setInput(newVal)
 }
 
-function clearDisplay() {
-    setInput("0")
-    setOutput("0")
-    setRounding("±")
-}
-
 function convertSize() {
     const input = document.getElementById("input")
     const inputVal = getNumber(input.innerHTML)
@@ -37,14 +37,14 @@ function convertSize() {
     const outputVal = getNumber(output.innerHTML)
     const rounding = document.getElementById("rounding")
     const roundingVal = getNumber(rounding.innerHTML)
-    if (isNaN(inputVal) || inputVal === "") {
+    if (isNaN(getInput()) || getInput() == "") {
         output.innerHTML = "0\""
         rounding.innerHTML = "±"
         return
     }
 
     // Convert to inches
-    var convertedInches = inputVal / 25.4
+    var convertedInches = getInput() / 25.4
     // Get whole inches
     var wholeInches = Math.trunc(convertedInches)
     // Get the decimal remainder of the whole inches as sixteenths
@@ -60,37 +60,42 @@ function convertSize() {
 
     // Show output
     if (fractionStr === "1/1") {
-        output.innerHTML = wholeInches + 1
-        rounding.innerHTML = remainder
+        setOutput(wholeInches + 1)
     } else if (fractionStr === "0/16") {
-        output.innerHTML = wholeInches
-        rounding.innerHTML = remainder
+        setOutput(wholeInches)
     } else {
-        output.innerHTML = wholeInches + " " + fractionStr
-        rounding.innerHTML = remainder
+        setOutput(wholeInches + " " + fractionStr)
     }
-}
-
-function setInput(value) {
-    document.getElementById("input").innerHTML = value + " cm"
+    setRounding(remainder)
 }
 
 function getInput() {
     return getNumber(document.getElementById("input").innerHTML)
 }
 
-function setOutput(value) {
-    document.getElementById("output").innerHTML = value + "\""
+function setInput(value) {
+    document.getElementById("input").innerHTML = value + " cm"
 }
 
 function getOutput() {
     return getNumber(document.getElementById("output").innerHTML)
 }
 
-function setRounding(value) {
-    document.getElementById("rounding").innerHTML = value
+function setOutput(value) {
+    let newValue = value
+    let index = value.indexOf(" ")
+    if (index !== -1) {
+        newValue = value.slice(0, index) + "\"" + value.slice(index)
+    } else {
+        newValue = value + "\""
+    }
+    document.getElementById("output").innerHTML = newValue
 }
 
 function getRounding() {
     return getNumber(document.getElementById("rounding").innerHTML)
+}
+
+function setRounding(value) {
+    document.getElementById("rounding").innerHTML = value
 }
