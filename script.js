@@ -10,20 +10,24 @@ function reduceFraction(numerator, denominator) {
 }
 
 function press(num) {
-    let old = getNumber(document.getElementById("input").innerHTML)
-    if (old == 0) old = ""
-    document.getElementById("input").innerHTML = old + num + " cm"
+    let oldVal = getInput()
+    if (oldVal == 0) oldVal = ""
+    setInput(oldVal + num)
 }
 
 function backspace() {
-    var old = document.getElementById("input").innerHTML
-    document.getElementById("input").innerHTML = old.substring(0, old.length - 1)
+    const oldVal = getInput()
+    let newVal = oldVal.substring(0, oldVal.length - 1)
+    if (newVal.length === 0) {
+        newVal = "0"
+    }
+    setInput(newVal)
 }
 
 function clearDisplay() {
-    document.getElementById("input").innerHTML = "0 cm"
-    document.getElementById("output").innerHTML = "0\""
-    document.getElementById("rounding").innerHTML = "±"
+    setInput("0")
+    setOutput("0")
+    setRounding("±")
 }
 
 function convertSize() {
@@ -65,4 +69,28 @@ function convertSize() {
         output.innerHTML = wholeInches + " " + fractionStr
         rounding.innerHTML = remainder
     }
+}
+
+function setInput(value) {
+    document.getElementById("input").innerHTML = value + " cm"
+}
+
+function getInput() {
+    return getNumber(document.getElementById("input").innerHTML)
+}
+
+function setOutput(value) {
+    document.getElementById("output").innerHTML = value + "\""
+}
+
+function getOutput() {
+    return getNumber(document.getElementById("output").innerHTML)
+}
+
+function setRounding(value) {
+    document.getElementById("rounding").innerHTML = value
+}
+
+function getRounding() {
+    return getNumber(document.getElementById("rounding").innerHTML)
 }
