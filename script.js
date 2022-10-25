@@ -3,9 +3,8 @@ function getNumber(str) {
 }
 
 function reduceFraction(numerator, denominator) {
-    if (numerator % 2 == 0 && numerator !== 0) {
+    if (numerator % 2 == 0 && numerator !== 0)
         return reduceFraction(numerator / 2, denominator / 2)
-    }
     return numerator + "/" + denominator
 }
 
@@ -24,9 +23,7 @@ function press(num) {
 function backspace() {
     const oldVal = getInput()
     let newVal = oldVal.substring(0, oldVal.length - 1)
-    if (newVal.length === 0) {
-        newVal = "0"
-    }
+    if (newVal.length === 0) newVal = "0"
     setInput(newVal)
 }
 
