@@ -16,7 +16,7 @@ div.content {
 p {
     min-width: 15px;
     min-height: 30px;
-    font-size: 2vw;
+    font-size: 2.5vw;
     text-align: center;
     color: #495459
 }
@@ -31,11 +31,11 @@ p.rounded-border {
 button.menu {
     color: #384757;
     background-color: #a6b8bf;
-    width: 18.5vw;
-    height: 5vh;
+    width: 25vw;
+    height: 6vh;
     min-width: 4.5em;
     min-height: 1.5em;
-    font-size: 2vw;
+    font-size: 3vw;
     border: none;
     border-radius: 5%;
     cursor: pointer;
@@ -50,11 +50,11 @@ button.menu:hover {
 button.keypad {
     color: #d3ebf5;
     background-color: #829298;
-    width: 6vw;
+    width: 8vw;
     height: 5vh;
     min-width: 1em;
     min-height: 1.5em;
-    font-size: 2.5vw;
+    font-size: 3vw;
     border: none;
     border-radius: 5%;
     cursor: pointer;
@@ -71,25 +71,7 @@ button.keypad:hover {
     src: url(resources/fonts/ShortStack-Regular.ttf);
 }
 
-@media screen and (max-width: 1000px) {
-    p {
-        font-size: 3.5vw;
-    }
-    
-    button.menu {
-        width: 40vw;
-        height: 6vh;
-        font-size: 4vw;
-    }
-    
-    button.keypad {
-        width: 13vw;
-        height: 5vh;
-        font-size: 5vw;
-    }
-}
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     p {
         font-size: 6vw;
     }
