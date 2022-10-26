@@ -28,34 +28,36 @@ function backspace() {
 }
 
 function convertSize() {
-    if (isNaN(getInput()) || getInput() == "") {
-        output.innerHTML = "0\""
-        rounding.innerHTML = "±"
+    if (isNaN(getInput()) || getInput() === "") {
+        setOutput("0")
+        setRounding("±")
         return
     }
 
-    // Convert to inches
-    var convertedInches = getInput() / 25.4
-    // Get whole inches
-    var wholeInches = Math.trunc(convertedInches)
-    // Get the decimal remainder of the whole inches as sixteenths
-    var fractionOfAnInch = (convertedInches - wholeInches) * 16
-    // Get sixteenths
-    var roundedFraction = Math.round(fractionOfAnInch)
-    // Check if the rounded value is above or below the true value
-    var remainder = fractionOfAnInch - roundedFraction
+    // Convert to inches.
+    const inches = getInput() / 2.54
+    const wholeInches = Math.trunc(inches)
+    // Convert decimal value to 16ths
+    const fraction = (inches - wholeInches) * 16
+    const roundedFraction = Math.round(fraction)
+    const reducedFraction = reduceFraction(roundedFraction, 16)
+    // Find remainder
+    let remainder = fraction - roundedFraction
     remainder = (Math.trunc(remainder * 100)) / 100
-    remainder = remainder < 0 ? remainder + "❌" : remainder + "✔️"
-    // Reduce fraction
-    var fractionStr = reduceFraction(roundedFraction, 16)
+    remainder += remainder < 0
+            ? "❌"
+            : "✔️"
 
-    // Show output
-    if (fractionStr === "1/1") {
+    // Show output.
+    if (reducedFraction === "1/1") {
+        console.log("1/1")
         setOutput(wholeInches + 1)
-    } else if (fractionStr === "0/16") {
+    } else if (reducedFraction === "0/16") {
+        console.log("0/16")
         setOutput(wholeInches)
     } else {
-        setOutput(wholeInches + " " + fractionStr)
+        console.log("inches: " + wholeInches + " reducedFraction: " + reducedFraction)
+        setOutput(wholeInches + " " + reducedFraction)
     }
     setRounding(remainder)
 }
@@ -68,16 +70,13 @@ function setInput(value) {
     document.getElementById("input").innerHTML = value + " cm"
 }
 
-function getOutput() {
-    return getNumber(document.getElementById("output").innerHTML)
-}
-
 function setOutput(value) {
-    document.getElementById("output").innerHTML = value + " ft"
-}
-
-function getRounding() {
-    return getNumber(document.getElementById("rounding").innerHTML)
+    let newValue = value.toString()
+    let index = newValue.indexOf(" ")
+    newValue = index !== -1
+            ? value.slice(0, index) + "\"" + value.slice(index)
+            : value + "\""
+    document.getElementById("output").innerHTML = newValue
 }
 
 function setRounding(value) {
