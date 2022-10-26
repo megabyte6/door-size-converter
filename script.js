@@ -1,62 +1,84 @@
+function getNumber(str) {
+    return str.replace(/[^\d.]/g, '')
+}
+
 function reduceFraction(numerator, denominator) {
-    while (numerator % 2 == 0) {
-        if (numerator == 0) break
-        numerator /= 2
-        denominator /= 2
-    }
+    if (numerator % 2 == 0 && numerator !== 0)
+        return reduceFraction(numerator / 2, denominator / 2)
     return numerator + "/" + denominator
 }
 
+function clearDisplay() {
+    setInput("0")
+    setOutput("0")
+    setRounding("±")
+}
+
 function press(num) {
-    var old = document.getElementById("input").innerHTML
-    document.getElementById("input").innerHTML = old + num
+    let oldVal = getInput()
+    if (oldVal == 0) oldVal = ""
+    setInput(oldVal + num)
 }
 
 function backspace() {
-    var old = document.getElementById("input").innerHTML
-    document.getElementById("input").innerHTML = old.substring(0, old.length - 1)
-}
-
-function clearDisplay() {
-    document.getElementById("input").innerHTML = ""
-    document.getElementById("output").innerHTML = "0"
-    document.getElementById("rounding").innerHTML = "±"
+    const oldVal = getInput()
+    let newVal = oldVal.substring(0, oldVal.length - 1)
+    if (newVal.length === 0) newVal = "0"
+    setInput(newVal)
 }
 
 function convertSize() {
-    var input = document.getElementById("input")
-    var output = document.getElementById("output")
-    var rounding = document.getElementById("rounding")
-    if (isNaN(input.innerHTML) || input.innerHTML === "") {
-        output.innerHTML = "0"
-        rounding.innerHTML = "±"
+    if (isNaN(getInput()) || getInput() === "") {
+        setOutput("0")
+        setRounding("±")
         return
     }
 
-    // Convert to inches
-    var convertedInches = input.innerHTML / 25.4
-    // Get whole inches
-    var wholeInches = Math.trunc(convertedInches)
-    // Get the decimal remainder of the whole inches as sixteenths
-    var fractionOfAnInch = (convertedInches - wholeInches) * 16
-    // Get sixteenths
-    var roundedFraction = Math.round(fractionOfAnInch)
-    // Check if the rounded value is above or below the true value
-    var remainder = fractionOfAnInch - roundedFraction
+    // Convert to inches.
+    const inches = getInput() / 2.54
+    const wholeInches = Math.trunc(inches)
+    // Convert decimal value to 16ths
+    const fraction = (inches - wholeInches) * 16
+    const roundedFraction = Math.round(fraction)
+    const reducedFraction = reduceFraction(roundedFraction, 16)
+    // Find remainder
+    let remainder = fraction - roundedFraction
     remainder = (Math.trunc(remainder * 100)) / 100
-    remainder = remainder < 0 ? remainder + "❌" : remainder + "✔️"
-    // Reduce fraction
-    var fractionStr = reduceFraction(roundedFraction, 16)
+    remainder += remainder < 0
+            ? "❌"
+            : "✔️"
 
-    // Show output
-    if (fractionStr === "1/1") {
-        output.innerHTML = wholeInches + 1
-        rounding.innerHTML = remainder
-    } else if (fractionStr === "0/16") {
-        output.innerHTML = wholeInches
-        rounding.innerHTML = remainder
+    // Show output.
+    if (reducedFraction === "1/1") {
+        console.log("1/1")
+        setOutput(wholeInches + 1)
+    } else if (reducedFraction === "0/16") {
+        console.log("0/16")
+        setOutput(wholeInches)
     } else {
-        output.innerHTML = wholeInches + " " + fractionStr
-        rounding.innerHTML = remainder
+        console.log("inches: " + wholeInches + " reducedFraction: " + reducedFraction)
+        setOutput(wholeInches + " " + reducedFraction)
     }
+    setRounding(remainder)
+}
+
+function getInput() {
+    return getNumber(document.getElementById("input").innerHTML)
+}
+
+function setInput(value) {
+    document.getElementById("input").innerHTML = value + " cm"
+}
+
+function setOutput(value) {
+    let newValue = value.toString()
+    let index = newValue.indexOf(" ")
+    newValue = index !== -1
+            ? value.slice(0, index) + "\"" + value.slice(index)
+            : value + "\""
+    document.getElementById("output").innerHTML = newValue
+}
+
+function setRounding(value) {
+    document.getElementById("rounding").innerHTML = value
 }

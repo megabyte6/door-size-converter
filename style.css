@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: ShortStack;
 }
 
 div.content {
@@ -12,24 +13,29 @@ div.content {
     transform: translate(-50%, -50%);
 }
 
-p.rounded-border {
-    border-style: solid;
-    border-color: #AAAAAA;
-    border-radius: 5px;
-    padding: 5px;
+p {
     min-width: 15px;
     min-height: 30px;
-    font-size: 24px;
+    font-size: 1.5vw;
     text-align: center;
+    color: #495459
+}
+
+p.rounded-border {
+    border-style: solid;
+    border-color: #909ea4;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 button.menu {
-    background-color: #CCCCCC;
+    color: #384757;
+    background-color: #a6b8bf;
     width: 9.2vw;
     height: 5vh;
     min-width: 4.5em;
     min-height: 1.5em;
-    font-size: 18px;
+    font-size: 1.75vw;
     border: none;
     border-radius: 5%;
     cursor: pointer;
@@ -37,18 +43,18 @@ button.menu {
 }
 
 button.menu:hover {
-    background-color: #DCDCDC;
+    background-color: #b4c7cf;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 button.keypad {
-    color: white;
-    background-color: #888888;
+    color: #d3ebf5;
+    background-color: #829298;
     width: 6vw;
     height: 5vh;
     min-width: 1em;
     min-height: 1.5em;
-    font-size: 18px;
+    font-size: 1.5vw;
     border: none;
     border-radius: 5%;
     cursor: pointer;
@@ -56,18 +62,47 @@ button.keypad {
 }
 
 button.keypad:hover {
-    background-color: #989898;
+    background-color: #9eaaaf;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
+@font-face {
+    font-family: ShortStack;
+    src: url(resources/fonts/ShortStack-Regular.ttf);
+}
+
+@media screen and (max-width: 1000px) {
+    p {
+        font-size: 3.5vw;
+    }
+    
+    button.menu {
+        width: 20vw;
+        height: 8vh;
+        font-size: 3vw;
+    }
+    
+    button.keypad {
+        width: 13vw;
+        height: 5vh;
+        font-size: 5vw;
+    }
+}
+
 @media screen and (max-width: 600px) {
+    p {
+        font-size: 5vw;
+    }
+    
     button.menu {
         width: 40vw;
         height: 15vh;
+        font-size: 7vw;
     }
     
     button.keypad {
         width: 26vw;
         height: 15vh;
+        font-size: 7vw;
     }
 }
