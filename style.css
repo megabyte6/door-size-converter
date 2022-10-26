@@ -31,11 +31,11 @@ p.rounded-border {
 button.menu {
     color: #384757;
     background-color: #a6b8bf;
-    width: 9.2vw;
+    width: 18.5vw;
     height: 5vh;
     min-width: 4.5em;
     min-height: 1.5em;
-    font-size: 1.75vw;
+    font-size: 2vw;
     border: none;
     border-radius: 5%;
     cursor: pointer;
@@ -77,9 +77,9 @@ button.keypad:hover {
     }
     
     button.menu {
-        width: 20vw;
-        height: 8vh;
-        font-size: 3vw;
+        width: 40vw;
+        height: 6vh;
+        font-size: 4vw;
     }
     
     button.keypad {
@@ -95,9 +95,9 @@ button.keypad:hover {
     }
     
     button.menu {
-        width: 40vw;
-        height: 15vh;
-        font-size: 7vw;
+        width: 80vw;
+        height: 10vh;
+        font-size: 9vw;
     }
     
     button.keypad {

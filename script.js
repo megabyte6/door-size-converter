@@ -1,5 +1,7 @@
-function getNumber(str) {
-    return str.replace(/[^\d.]/g, '')
+function getNumber(str, ignoreDecimalPointOnEnd = true) {
+    let num = str.replace(/[^\d.]/g, '')
+    if (ignoreDecimalPointOnEnd && num.slice(-1) === '.') num = num.slice(0, num.length - 1)
+    return num
 }
 
 function reduceFraction(numerator, denominator) {
@@ -15,16 +17,21 @@ function clearDisplay() {
 }
 
 function press(num) {
-    let oldVal = getInput()
+    let oldVal = getInput(false)
     if (oldVal == 0) oldVal = ""
     setInput(oldVal + num)
+    convertSize()
 }
 
 function backspace() {
-    const oldVal = getInput()
+    const oldVal = getInput(false)
     let newVal = oldVal.substring(0, oldVal.length - 1)
-    if (newVal.length === 0) newVal = "0"
+    if (newVal.length === 0) {
+        clearDisplay()
+        return
+    }
     setInput(newVal)
+    convertSize()
 }
 
 function convertSize() {
@@ -50,20 +57,17 @@ function convertSize() {
 
     // Show output.
     if (reducedFraction === "1/1") {
-        console.log("1/1")
         setOutput(wholeInches + 1)
     } else if (reducedFraction === "0/16") {
-        console.log("0/16")
         setOutput(wholeInches)
     } else {
-        console.log("inches: " + wholeInches + " reducedFraction: " + reducedFraction)
         setOutput(wholeInches + " " + reducedFraction)
     }
     setRounding(remainder)
 }
 
-function getInput() {
-    return getNumber(document.getElementById("input").innerHTML)
+function getInput(ignoreDecimalPointOnEnd = true) {
+    return getNumber(document.getElementById("input").innerHTML, ignoreDecimalPointOnEnd)
 }
 
 function setInput(value) {
