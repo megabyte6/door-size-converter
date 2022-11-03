@@ -67,8 +67,8 @@ button.keypad:hover {
 }
 
 @font-face {
-    font-family: ShortStack;
-    src: url(resources/fonts/ShortStack-Regular.ttf);
+    font-family: Apple;
+    src: url(AppleGaramond-Bold.ttf);
 }
 
 @media screen and (max-width: 800px) {
